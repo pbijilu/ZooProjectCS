@@ -6,18 +6,13 @@ namespace Trainings.ConsoleApp.Animals.Predators
 {
     class Seal : Predator, IFishEatable
     {
-        public Seal(string name, int age, Sex sex, int meatQuantity, int fishQuantity) : base(name, age, sex, meatQuantity)
+        public Seal() : base()
         {
             Ground = GroundType.Water;
             Species = SpeciesType.Seal;
-            this.FishQuantity = fishQuantity;
-        }
 
-        public Seal() : base("Zhanna", 5, Sex.Female, 0)
-        {
-            Ground = GroundType.Water;
-            Species = SpeciesType.Seal;
-            this.FishQuantity = 6;
+            Console.WriteLine("Do you want to give it some fish? Please enter the fish quantity ('0' for no fish)");
+            FishQuantity = Convert.ToInt32(Console.ReadLine());
         }
 
         public int FishQuantity { get; set; }
@@ -29,6 +24,20 @@ namespace Trainings.ConsoleApp.Animals.Predators
             {
                 Console.WriteLine("Success! Had some tasty meat!");
                 FishQuantity--;
+            }
+            else
+            {
+                Console.WriteLine("No meat slices available.");
+            }
+        }
+
+        public override void Eat()
+        {
+            Console.WriteLine("Trying to eat...");
+            if (MeatQuantity > 0)
+            {
+                Console.WriteLine("I'd really prefer some fish instead, but if you insist...");
+                MeatQuantity--;
             }
             else
             {

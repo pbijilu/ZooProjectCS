@@ -5,9 +5,10 @@ namespace Trainings.ConsoleApp.Animals.Herbivores
 {
     abstract class Herbivore : Animal
     {
-        public Herbivore(string name, int age, Sex sex, int grassQuantity) : base(name, age, sex)
+        public Herbivore() : base()
         {
-            this.GrassQuantity = grassQuantity;
+            Console.WriteLine("Do you want to give it some grass? Please enter the grass quantity ('0' for no meat)");
+            GrassQuantity = Convert.ToInt32(Console.ReadLine());
         }
 
         public int GrassQuantity { get; set; }

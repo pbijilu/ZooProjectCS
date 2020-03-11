@@ -1,14 +1,18 @@
-﻿using Trainings.ConsoleApp.Enums;
+﻿using System;
+using Trainings.ConsoleApp.Enums;
 
 namespace Trainings.ConsoleApp.Animals
 {
     abstract class Animal
     {
-        public Animal(string name, int age, Sex sex)
+        public Animal()
         {
-            this.Name = name;
-            this.Age = age;
-            this.Sex = sex;
+            Console.WriteLine("Enter animal's name:");
+            Name = Console.ReadLine();
+            Console.WriteLine("Enter animal's age:");
+            Age = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Select animal's sex: ('1' for male, '2' for female)");
+            Sex = (Sex)Convert.ToInt32(Console.ReadLine());
         }
 
         public string Name { get; set; }

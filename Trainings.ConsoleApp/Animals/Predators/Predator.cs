@@ -6,9 +6,10 @@ namespace Trainings.ConsoleApp.Animals.Predators
 {
     abstract class Predator : Animal
     {
-        public Predator(string name, int age, Sex sex, int meatQuantity) : base (name, age, sex)
+        public Predator() : base ()
         {
-            this.MeatQuantity = meatQuantity;
+            Console.WriteLine("Do you want to give it some meat? Please enter the meat quantity ('0' for no meat)");
+            MeatQuantity = Convert.ToInt32(Console.ReadLine());
         }
 
         public int MeatQuantity { get; set; }

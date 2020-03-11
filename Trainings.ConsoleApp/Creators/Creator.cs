@@ -11,6 +11,6 @@ namespace Trainings.ConsoleApp.Creators
 {
     abstract class Creator
     {
-        public abstract Animal Create(string name, int age, Sex sex, int foodQuantity);
+        public abstract Animal Create();
     }
 }

@@ -58,7 +58,16 @@
     <Compile Include="Animals\Predators\Wolf.cs" />
     <Compile Include="Creators\BearCreator.cs" />
     <Compile Include="Creators\Creator.cs" />
-    <Compile Include="Creators\IFishEatableCreator.cs" />
+    <Compile Include="Creators\ElephantCreator.cs" />
+    <Compile Include="Creators\GiraffeCreator.cs" />
+    <Compile Include="Creators\GorillaCreator.cs" />
+    <Compile Include="Creators\HippopotamusCreator.cs" />
+    <Compile Include="Creators\KoalaCreator.cs" />
+    <Compile Include="Creators\LionCreator.cs" />
+    <Compile Include="Creators\PenguinCreator.cs" />
+    <Compile Include="Creators\SealCreator.cs" />
+    <Compile Include="Creators\WolfCreator.cs" />
+    <Compile Include="Creators\ZebraCreator.cs" />
     <Compile Include="Enums\SpeciesType.cs" />
     <Compile Include="Enums\GroundType.cs" />
     <Compile Include="Enums\Sex.cs" />
@@ -67,6 +76,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Staff\Feeder.cs" />
     <Compile Include="Staff\Worker.cs" />
+    <Compile Include="Zones\Zone.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

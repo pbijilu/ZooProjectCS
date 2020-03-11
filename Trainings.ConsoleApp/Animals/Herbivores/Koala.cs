@@ -9,13 +9,7 @@ namespace Trainings.ConsoleApp.Animals.Herbivores
 {
     class Koala : Herbivore
     {
-        public Koala(string name, int age, Sex sex, int grassQuantity) : base(name, age, sex, grassQuantity)
-        {
-            Ground = GroundType.TropicalForest;
-            Species = SpeciesType.Koala;
-        }
-
-        public Koala() : base("Gary", 4, Sex.Male, 0)
+        public Koala() : base()
         {
             Ground = GroundType.TropicalForest;
             Species = SpeciesType.Koala;

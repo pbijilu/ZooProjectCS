@@ -11,18 +11,17 @@ using Trainings.ConsoleApp.Zones;
 
 namespace Trainings.ConsoleApp.Creators
 {
-    class BearCreator : Creator
+    class GorillaCreator : Creator
     {
         Zone zone;
 
-        public BearCreator(Zone zone)
+        public GorillaCreator(Zone zone)
         {
             this.zone = zone;
         }
-
         public override Animal Create()
         {
-            if (zone.Ground != GroundType.Forest)
+            if (zone.Ground != GroundType.TropicalForest)
             {
                 Console.WriteLine("This animal can't live here.");
                 return null;
@@ -37,7 +36,7 @@ namespace Trainings.ConsoleApp.Creators
                 }
             }
 
-            return new Bear();
+            return new Gorilla();
         }
     }
 }

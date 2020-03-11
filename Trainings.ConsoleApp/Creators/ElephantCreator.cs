@@ -11,18 +11,18 @@ using Trainings.ConsoleApp.Zones;
 
 namespace Trainings.ConsoleApp.Creators
 {
-    class BearCreator : Creator
+    class ElephantCreator : Creator
     {
         Zone zone;
 
-        public BearCreator(Zone zone)
+        public ElephantCreator(Zone zone)
         {
             this.zone = zone;
         }
 
         public override Animal Create()
         {
-            if (zone.Ground != GroundType.Forest)
+            if (zone.Ground != GroundType.Plains)
             {
                 Console.WriteLine("This animal can't live here.");
                 return null;
@@ -30,14 +30,14 @@ namespace Trainings.ConsoleApp.Creators
 
             for (int i = 0; i < zone.Animals.Length; i++)
             {
-                if (zone.Animals[i] is Herbivore)
+                if (zone.Animals[i] is Predator)
                 {
                     Console.WriteLine("Predators can't live with herbivores.");
                     return null;
                 }
             }
 
-            return new Bear();
+            return new Elephant();
         }
     }
 }

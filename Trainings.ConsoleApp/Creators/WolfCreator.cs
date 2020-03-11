@@ -11,11 +11,11 @@ using Trainings.ConsoleApp.Zones;
 
 namespace Trainings.ConsoleApp.Creators
 {
-    class BearCreator : Creator
+    class WolfCreator : Creator
     {
         Zone zone;
 
-        public BearCreator(Zone zone)
+        public WolfCreator(Zone zone)
         {
             this.zone = zone;
         }
@@ -37,7 +37,7 @@ namespace Trainings.ConsoleApp.Creators
                 }
             }
 
-            return new Bear();
+            return new Wolf();
         }
     }
 }
