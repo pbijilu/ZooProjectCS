@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Trainings.ConsoleApp.Animals;
 using Trainings.ConsoleApp.Animals.Herbivores;
 using Trainings.ConsoleApp.Animals.Predators;
@@ -17,11 +18,11 @@ namespace Trainings.ConsoleApp
 
         static void ZoneInitializer()
         {
-            zones.Add(new Zone(GroundType.Forest));
-            zones.Add(new Zone(GroundType.Iceberg));
-            zones.Add(new Zone(GroundType.Plains));
-            zones.Add(new Zone(GroundType.TropicalForest));
-            zones.Add(new Zone(GroundType.Water));
+            zones.Add(new Zone("Zone 1", GroundType.Forest));
+            zones.Add(new Zone("Zone 2", GroundType.Iceberg));
+            zones.Add(new Zone("Zone 3", GroundType.Plains));
+            zones.Add(new Zone("Zone 4", GroundType.TropicalForest));
+            zones.Add(new Zone("Zone 5", GroundType.Water));
         }
 
         static Zone ZoneChooser()
@@ -52,6 +53,39 @@ namespace Trainings.ConsoleApp
             foreach (Animal a in zones[zoneNumber-1].Animals)
             {
                 if (a != null) Console.WriteLine(a);
+            }
+        }
+
+        static void AnimalSelectionDisplayer(List<KeyValuePair<Animal,Zone>> listOfPairs)
+        {
+            if (listOfPairs.Any())
+            {
+                foreach (KeyValuePair<Animal, Zone> pair in listOfPairs)
+                {
+                    Console.WriteLine($"{pair.Key.ToString()} I sit in {pair.Value.Id}. It's a {pair.Value.Ground} zone.");
+                }
+            }
+            else Console.WriteLine("No animal found!");
+        }
+
+        static void AnimalFinder()
+        {
+            Console.WriteLine("Select parameter to find your animal:");
+            Console.WriteLine("1. Find by name\n2. Find by species");
+
+
+            switch (Convert.ToInt32(Console.ReadLine()))
+            {
+                case 1:
+                    Console.WriteLine("Please enter animals' name (or the beginning of it):");
+                    string input = Console.ReadLine();
+                    AnimalSelectionDisplayer(allAnimals.Where(i => i.Key.Name.StartsWith(input)).ToList());
+                    break;
+                case 2:
+                    Console.WriteLine("Please enter animal's species (or the beginning of it):");
+                    input = Console.ReadLine();
+                    AnimalSelectionDisplayer(allAnimals.Where(i => i.Key.Species.ToString().StartsWith(input)).ToList());
+                    break;
             }
         }
 
@@ -147,7 +181,7 @@ namespace Trainings.ConsoleApp
             {
                 Console.WriteLine("Hello! This is the Ultimate Zoo's main menu");
                 Console.WriteLine("Select your task by entering the first letter:");
-                Console.WriteLine("1. Add new animal to the base\n2. View current animals location\n3. View all animals\n4. Feed the animal\n5. Clean the cage");
+                Console.WriteLine("1. Add new animal to the base\n2. View current animals location\n3. View all animals\n4. Find animal by...\n5. Feed the animal\n6. Clean the cage");
 
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
@@ -161,7 +195,7 @@ namespace Trainings.ConsoleApp
                         AllAnimalsViewer();
                         break;
                     case 4:
-                        Console.WriteLine();
+                        AnimalFinder();
                         break;
                     case 5:
                         Console.WriteLine();
