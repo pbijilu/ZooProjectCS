@@ -13,7 +13,7 @@ namespace Trainings.ConsoleApp.Creators
 {
     class HippopotamusCreator : Creator
     {
-        Zone zone;
+        private Zone zone;
 
         public HippopotamusCreator(Zone zone)
         {

@@ -10,19 +10,18 @@ namespace Trainings.ConsoleApp.Zones
 {
     class Zone
     {
-        public Zone(string id, GroundType ground)
+        public Zone(int id, GroundType ground)
         {
             Id = id;
             Ground = ground;
             Animals = new Animal[4];
-   
         }
 
         public GroundType Ground { get; }
 
         public Animal[] Animals { get; }
 
-        public string Id { get; }
+        public int Id { get; }
 
         public override string ToString()
         {

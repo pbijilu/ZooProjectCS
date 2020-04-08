@@ -13,7 +13,7 @@ namespace Trainings.ConsoleApp.Creators
 {
     class GorillaCreator : Creator
     {
-        Zone zone;
+        private Zone zone;
 
         public GorillaCreator(Zone zone)
         {
@@ -35,7 +35,6 @@ namespace Trainings.ConsoleApp.Creators
                     return null;
                 }
             }
-
             return new Gorilla();
         }
     }

@@ -3,7 +3,7 @@ using Trainings.ConsoleApp.Enums;
 
 namespace Trainings.ConsoleApp.Animals
 {
-    abstract class Animal
+    public abstract class Animal
     {
         public Animal()
         {

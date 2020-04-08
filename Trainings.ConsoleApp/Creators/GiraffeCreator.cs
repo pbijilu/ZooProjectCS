@@ -13,7 +13,7 @@ namespace Trainings.ConsoleApp.Creators
 {
     class GiraffeCreator : Creator
     {
-        Zone zone;
+        private Zone zone;
 
         public GiraffeCreator(Zone zone)
         {
@@ -35,7 +35,6 @@ namespace Trainings.ConsoleApp.Creators
                     return null;
                 }
             }
-
             return new Giraffe();
         }
     }

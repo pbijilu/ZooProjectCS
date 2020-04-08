@@ -13,7 +13,7 @@ namespace Trainings.ConsoleApp.Creators
 {
     class LionCreator : Creator
     {
-        Zone zone;
+        private Zone zone;
 
         public LionCreator(Zone zone)
         {
@@ -22,7 +22,7 @@ namespace Trainings.ConsoleApp.Creators
 
         public override Animal Create()
         {
-            if (zone.Ground != GroundType.Plains)
+            if (zone.Ground != GroundType.Iceberg)
             {
                 Console.WriteLine("This animal can't live here.");
                 return null;
@@ -36,7 +36,6 @@ namespace Trainings.ConsoleApp.Creators
                     return null;
                 }
             }
-
             return new Lion();
         }
     }

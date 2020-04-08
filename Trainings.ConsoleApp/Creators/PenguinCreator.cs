@@ -13,7 +13,7 @@ namespace Trainings.ConsoleApp.Creators
 {
     class PenguinCreator : Creator
     {
-        Zone zone;
+        private Zone zone;
 
         public PenguinCreator(Zone zone)
         {
@@ -36,7 +36,6 @@ namespace Trainings.ConsoleApp.Creators
                     return null;
                 }
             }
-
             return new Penguin();
         }
     }

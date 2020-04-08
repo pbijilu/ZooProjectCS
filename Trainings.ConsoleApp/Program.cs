@@ -6,7 +6,7 @@ using Trainings.ConsoleApp.Animals.Herbivores;
 using Trainings.ConsoleApp.Animals.Predators;
 using Trainings.ConsoleApp.Creators;
 using Trainings.ConsoleApp.Enums;
-using Trainings.ConsoleApp.Staff;
+using Trainings.ConsoleApp.Interfaces;
 using Trainings.ConsoleApp.Zones;
 
 namespace Trainings.ConsoleApp
@@ -18,16 +18,16 @@ namespace Trainings.ConsoleApp
 
         static void ZoneInitializer()
         {
-            zones.Add(new Zone("Zone 1", GroundType.Forest));
-            zones.Add(new Zone("Zone 2", GroundType.Iceberg));
-            zones.Add(new Zone("Zone 3", GroundType.Plains));
-            zones.Add(new Zone("Zone 4", GroundType.TropicalForest));
-            zones.Add(new Zone("Zone 5", GroundType.Water));
+            zones.Add(new Zone(1, GroundType.Forest));
+            zones.Add(new Zone(2, GroundType.Iceberg));
+            zones.Add(new Zone(3, GroundType.Plains));
+            zones.Add(new Zone(4, GroundType.TropicalForest));
+            zones.Add(new Zone(5, GroundType.Water));
         }
 
         static Zone ZoneChooser()
         {
-            Console.WriteLine("Select a zone to place the animal there:");
+            Console.WriteLine("Select a zone:");
 
             for (int i = 0; i < zones.Count; i++)
             {
@@ -39,20 +39,11 @@ namespace Trainings.ConsoleApp
             return zones[zoneNumber-1];
         }
 
-        static void ZoneViewer()
+        static void ZoneViewer(Zone zone)
         {
-            Console.WriteLine("Select a zone to view its animals:");
-
-            for (int i = 0; i < zones.Count; i++)
+            for (int i = 0; i < zone.Animals.Length; i++)
             {
-                Console.WriteLine($"Zone {i + 1}. {zones[i].ToString()}");
-            }
-
-            int zoneNumber = Convert.ToInt32(Console.ReadLine());
-
-            foreach (Animal a in zones[zoneNumber-1].Animals)
-            {
-                if (a != null) Console.WriteLine(a);
+                if (zone.Animals[i] != null) Console.WriteLine($"{i+1}. {zone.Animals[i]}");
             }
         }
 
@@ -62,39 +53,52 @@ namespace Trainings.ConsoleApp
             {
                 foreach (KeyValuePair<Animal, Zone> pair in listOfPairs)
                 {
-                    Console.WriteLine($"{pair.Key.ToString()} I sit in {pair.Value.Id}. It's a {pair.Value.Ground} zone.");
+                    Console.WriteLine($"{pair.Key.ToString()} I sit in Zone {pair.Value.Id}. It's a {pair.Value.Ground} zone.");
                 }
             }
             else Console.WriteLine("No animal found!");
         }
 
-        static void AnimalFinder()
+        static List<KeyValuePair<Animal,Zone>> AnimalCollectionFinder()
         {
             Console.WriteLine("Select parameter to find your animal:");
             Console.WriteLine("1. Find by name\n2. Find by species");
 
-
-            switch (Convert.ToInt32(Console.ReadLine()))
+            while (true)
             {
-                case 1:
-                    Console.WriteLine("Please enter animals' name (or the beginning of it):");
-                    string input = Console.ReadLine();
-                    AnimalSelectionDisplayer(allAnimals.Where(i => i.Key.Name.StartsWith(input)).ToList());
-                    break;
-                case 2:
-                    Console.WriteLine("Please enter animal's species (or the beginning of it):");
-                    input = Console.ReadLine();
-                    AnimalSelectionDisplayer(allAnimals.Where(i => i.Key.Species.ToString().StartsWith(input)).ToList());
-                    break;
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        Console.WriteLine("Please enter animals' name (or the beginning of it):");
+                        string input = Console.ReadLine();
+                        return allAnimals.Where(i => i.Key.Name.StartsWith(input)).ToList();
+                    case "2":
+                        Console.WriteLine("Please enter animal's species (or the beginning of it):");
+                        input = Console.ReadLine();
+                        return allAnimals.Where(i => i.Key.Species.ToString().StartsWith(input)).ToList();
+                    default:
+                        Console.WriteLine("Please select a number from the list");
+                        break;
+                }
             }
         }
 
-        static Animal AnimalChooser(Zone zone)
+        static Animal AnimalChooser()
+        {
+            Zone zone = ZoneChooser();
+            ZoneViewer(zone);
+            Console.WriteLine("Please select your animal by typing the correct number:");
+            return zone.Animals[Convert.ToInt32(Console.ReadLine())-1];
+        }
+
+        static Animal AnimalCreator(Zone zone)
         {
             Creator creator = null;
-
             int i = 1;
+
             Console.WriteLine("Please select species from the list and enter the number:");
+
             foreach (SpeciesType species in Enum.GetValues(typeof(SpeciesType)))
             {
                 Console.WriteLine($"{i}. {species}");
@@ -103,39 +107,39 @@ namespace Trainings.ConsoleApp
 
             while (true)
             {
-                switch (Convert.ToInt32(Console.ReadLine()))
+                switch (Console.ReadLine())
                 {
-                    case (1):
+                    case "1":
                         creator = new BearCreator(zone);
                         break;
-                    case (2):
+                    case "2":
                         creator = new GorillaCreator(zone);
                         break;
-                    case (3):
+                    case "3":
                         creator = new LionCreator(zone);
                         break;
-                    case (4):
+                    case "4":
                         creator = new PenguinCreator(zone);
                         break;
-                    case (5):
+                    case "5":
                         creator = new SealCreator(zone);
                         break;
-                    case (6):
+                    case "6":
                         creator = new WolfCreator(zone);
                         break;
-                    case (7):
+                    case "7":
                         creator = new ElephantCreator(zone);
                         break;
-                    case (8):
+                    case "8":
                         creator = new GiraffeCreator(zone);
                         break;
-                    case (9):
+                    case "9":
                         creator = new HippopotamusCreator(zone);
                         break;
-                    case (10):
+                    case "10":
                         creator = new KoalaCreator(zone);
                         break;
-                    case (11):
+                    case "11":
                         creator = new ZebraCreator(zone);
                         break;
                     default:
@@ -144,14 +148,13 @@ namespace Trainings.ConsoleApp
                 }
                 if (creator != null) break;
             }
-
             return creator.Create();
         }
 
         static void AnimalPlacer()
         {
             Zone selectedZone = ZoneChooser();
-            Animal newAnimal = AnimalChooser(selectedZone);
+            Animal newAnimal = AnimalCreator(selectedZone);
 
             if (newAnimal != null)
             {
@@ -168,9 +171,39 @@ namespace Trainings.ConsoleApp
             }
         }
 
-        static void AllAnimalsViewer()
+        static void AnimalFeeder(Animal animal)
         {
+            Console.WriteLine("Do you want to feed the animal? Enter [y]es or [n]o:");
+            string input = Console.ReadLine();
 
+            if (input == "y")
+            {
+                if (animal is Herbivore)
+                {
+                    Herbivore herbivore =  animal as Herbivore;
+                    herbivore.GrassQuantity++;
+                    Console.WriteLine("Some grass given");
+                }
+                if (animal is Predator)
+                {
+                    Predator predator = animal as Predator;
+                    predator.MeatQuantity++;
+                    Console.WriteLine("Some meat given");
+                }
+                if (animal is IFishEatable)
+                {
+                    Console.WriteLine("Do you want to give it some fish? Enter [y]es or [n]o:");
+                    string secondInput = Console.ReadLine();
+
+                    if (secondInput == "y")
+                    {
+                        IFishEatable fishEater = animal as IFishEatable;
+                        fishEater.FishQuantity++;
+                        Console.WriteLine("Some fish given");
+                    }
+                }
+            }
+            
         }
 
         static void Main(string[] args)
@@ -180,25 +213,25 @@ namespace Trainings.ConsoleApp
             while (true)
             {
                 Console.WriteLine("Hello! This is the Ultimate Zoo's main menu");
-                Console.WriteLine("Select your task by entering the first letter:");
-                Console.WriteLine("1. Add new animal to the base\n2. View current animals location\n3. View all animals\n4. Find animal by...\n5. Feed the animal\n6. Clean the cage");
+                Console.WriteLine("Select your task by entering the number:");
+                Console.WriteLine("1. Add new animal to the base\n2. View current animals location\n3. View all animals\n4. Find animal by...\n5. Feed the animal");
 
-                switch (Convert.ToInt32(Console.ReadLine()))
+                switch (Console.ReadLine())
                 {
-                    case 1:
+                    case "1":
                         AnimalPlacer();
                         break;
-                    case 2:
-                        ZoneViewer();
+                    case "2":
+                        ZoneViewer(ZoneChooser());
                         break;
-                    case 3:
-                        AllAnimalsViewer();
+                    case "3":
+                        AnimalSelectionDisplayer(allAnimals.ToList());
                         break;
-                    case 4:
-                        AnimalFinder();
+                    case "4":
+                        AnimalSelectionDisplayer(AnimalCollectionFinder());
                         break;
-                    case 5:
-                        Console.WriteLine();
+                    case "5":
+                        AnimalFeeder(AnimalChooser());
                         break;
                     default:
                         Console.WriteLine("Please select a number from the list");
